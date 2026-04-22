@@ -3,7 +3,6 @@ class Solution {
         List<String> ans = new ArrayList<>();
         for(int i = 0 ; i < queries.length ; i++)
         {
-            boolean found = false;
             for(int j = 0 ; j < dictionary.length ; j++)
             {
                 int edits = 0;
@@ -16,11 +15,7 @@ class Solution {
                 }
                 if(edits <= 2)
                 {
-                    found = true;
                     ans.add(queries[i]);
-                }
-                if(found)
-                {
                     break;
                 }
             }
