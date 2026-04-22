@@ -1,25 +1,27 @@
 class Solution {
-    public int climbStairs(int n) {
-        int a = 1;
-        int b = 2;
+    public int climbStairs(int n){
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+        return recur(dp,n);
+        
+    }
 
+    public static int recur(int[] dp , int n)
+    {
         if(n == 1 || n == 2)
         {
-            return n;
+            dp[n] = n;
+            return dp[n];
         }
 
-        for(int i = 2; i < n ; i++)
+        if(dp[n] != -1)
         {
-            int temp = b;
-            b = a+b;
-            a = temp;
+            return dp[n];
+        }
 
-        } 
+        dp[n] = recur(dp,n-1) + recur(dp,n-2);
+        return dp[n];
 
-        return b;
-
-
-        
     }
 
     
