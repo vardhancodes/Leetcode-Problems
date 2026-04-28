@@ -8,14 +8,15 @@ class Solution {
 
     public static void recur(int[] candidates, List<List<Integer>> list, List<Integer> sublist, int ind , int target)
     {
-        if(target == 0)
-        {
-            list.add(new ArrayList<>(sublist));
-            return;
-        }
+        
         
         if(ind == candidates.length)
         {
+            if(target == 0)
+            {
+                list.add(new ArrayList<>(sublist));
+            
+            }
             return;
         }
 
