@@ -8,6 +8,7 @@ class Solution {
     }
     public static void recur(int[] arr, int k, int target,List<List<Integer>> list ,List<Integer> sublist , int ind)
     {
+        if(target < 0) return;
         if(k == 0)
         {
             if(target == 0)
@@ -21,7 +22,7 @@ class Solution {
 
         for(int i = ind ; i < arr.length ; i++)
         {
-            if(arr[i] <= target && (i == ind || arr[i] != arr[i-1]))
+            if(arr[i] <= target)
             {
                 sublist.add(arr[i]);
                 recur(arr,k-1,target-arr[i],list,sublist,i+1);
