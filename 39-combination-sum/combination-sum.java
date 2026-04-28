@@ -8,26 +8,21 @@ class Solution {
 
     public static void recur(int[] candidates, List<List<Integer>> list, List<Integer> sublist, int ind , int target)
     {
-        
-        
-        if(ind == candidates.length)
+        if(target == 0)
         {
-            if(target == 0)
-            {
-                list.add(new ArrayList<>(sublist));
-            
-            }
+            list.add(new ArrayList<>(sublist));
             return;
         }
 
-        if(candidates[ind] <= target)
+        for(int i = ind ; i < candidates.length ; i++)
         {
-            sublist.add(candidates[ind]);
-            recur(candidates,list,sublist,ind,target-candidates[ind]);
-            sublist.remove(sublist.size()-1);
+            if(candidates[i] <= target && (i == ind || candidates[i] != candidates[i-1]))
+            {
+                sublist.add(candidates[i]);
+                recur(candidates,list,sublist,i,target-candidates[i]);
+                sublist.remove(sublist.size()-1);
+            }
+            
         }
-
-        recur(candidates,list,sublist,ind+1,target);
-
     }
 }
