@@ -6,17 +6,19 @@ class Solution {
         return list;
 
     }
-    public static void recur(int[] nums , int ind ,List<List<Integer>> list,List<Integer> sublist )
+    public static void recur(int[] nums , int ind ,List<List<Integer>> list,List<Integer> sublist)
     {
-        if(ind == nums.length)
+        
+        list.add(new ArrayList<>(sublist));  
+        
+
+        for(int i = ind ; i < nums.length ; i++)
         {
-            list.add(new ArrayList<>(sublist));
-            return;    
+            sublist.add(nums[i]);
+            recur(nums,i+1,list,sublist);
+            sublist.remove(sublist.size()-1);
         }
 
-        sublist.add(nums[ind]);
-        recur(nums,ind+1,list,sublist);
-        sublist.remove(sublist.size()-1);
-        recur(nums,ind+1,list,sublist);
+        
     }
 }
