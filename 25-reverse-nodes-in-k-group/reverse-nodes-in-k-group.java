@@ -22,44 +22,38 @@ class Solution {
             total++;
         }
         int groups = total/k;
-        ListNode dummy = new ListNode(-1);
-        boolean newHead = false;
-        ListNode head1 = null;
-        ListNode curr = head;
-        ListNode prev = null;
-        ListNode newTail = null;
-        int counter = 0; 
+        ListNode ans = null;
+        ListNode prevHead = null;
+        ListNode currHead = head;
         for(int i = 0 ; i < groups ; i++)
         {
-            while(counter != k)
+            ListNode curr = currHead;
+            ListNode prev = null;
+            for(int j = 0 ; j < k ; j++)
             {
                 ListNode nextNode = curr.next;
                 curr.next = prev;
-                if(prev == null)
-                {
-                    newTail = curr;
-                }
                 prev = curr;
                 curr = nextNode;
-                counter++;
             }
-            dummy.next = prev;
-            if(!newHead)
+            if(prevHead == null)
             {
-                head1 = dummy;
-                newHead = true;
+                ans = prev;
             }
-            dummy = newTail;
-            counter = 0;
-            prev = null;
-        }
+            else
+            {
+                prevHead.next = prev;
+            }
+            prevHead = currHead;
+            currHead = curr;
 
-        if(curr != null)
+        }
+        if(currHead != null)
         {
-            dummy.next = curr;
+            prevHead.next = currHead;
         }
 
-        return head1.next;
+        return ans;
 
        
     }
