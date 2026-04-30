@@ -14,21 +14,21 @@ class Solution {
         {
             return head;
         }
-        int total = 0;
+        int size = 0;
         ListNode temp = head;
-        while(temp != null)
+        while(temp!=null)
         {
             temp = temp.next;
-            total++;
+            size++;
         }
-        int groups = total/k;
-        ListNode ans = null;
+        int groups = size/k;
         ListNode prevHead = null;
         ListNode currHead = head;
-        for(int i = 0 ; i < groups ; i++)
+        ListNode ans = null;
+        for(int i = 0 ; i < groups ; i++ )
         {
-            ListNode curr = currHead;
             ListNode prev = null;
+            ListNode curr = currHead;
             for(int j = 0 ; j < k ; j++)
             {
                 ListNode nextNode = curr.next;
@@ -36,6 +36,7 @@ class Solution {
                 prev = curr;
                 curr = nextNode;
             }
+
             if(prevHead == null)
             {
                 ans = prev;
@@ -46,21 +47,9 @@ class Solution {
             }
             prevHead = currHead;
             currHead = curr;
-
+            
         }
-        if(currHead != null)
-        {
-            prevHead.next = currHead;
-        }
-
+        prevHead.next = currHead;
         return ans;
-
-       
     }
-
-
-        
-
-
-    
 }
