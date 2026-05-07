@@ -15,25 +15,36 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-        int ans[] = new int[1]; 
-        find(root,ans);
-        return ans[0];
+        if(root == null)
+        {
+            return 0;
+        }
+
+        int lh = height(root.left);
+        int rh = height(root.right);
+
+        int curr = lh+rh;
+
+        int left = diameterOfBinaryTree(root.left);
+        int right = diameterOfBinaryTree(root.right);
+
+        return Math.max(Math.max(left,right),curr);
     }
 
-    public static int find(TreeNode root, int[] ans)
+    public static int height(TreeNode root)
     {
         if(root == null)
         {
             return 0;
         }
 
-        int lh = find(root.left,ans);
-        int rh = find(root.right,ans);
-
-        ans[0] = Math.max(ans[0],lh+rh);
+        int lh = height(root.left);
+        int rh = height(root.right);
 
 
         return 1+Math.max(lh,rh);
     }
+
+    
 
 }
