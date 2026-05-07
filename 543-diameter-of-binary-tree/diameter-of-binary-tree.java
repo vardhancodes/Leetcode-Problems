@@ -20,10 +20,7 @@ class Solution {
             return 0;
         }
 
-        int lh = height(root.left);
-        int rh = height(root.right);
-
-        int curr = lh+rh;
+        int curr = height(root.left)+height(root.right);
 
         int left = diameterOfBinaryTree(root.left);
         int right = diameterOfBinaryTree(root.right);
