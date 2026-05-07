@@ -1,27 +1,21 @@
 class Solution {
     public boolean check(int[] nums) {
-        if(nums.length == 1) return true;
-        int length = 1;
-        int n = nums.length;
-        for(int i = 1 ; i < (n*2) ; i++)
-        {
-            
-            if(nums[(i-1)%n] <= nums[i%n])
-            {
-                length++;
-            }
-            else
-            {
-                length = 1;
-            }
+        
+        int dips = 0;
 
-            if(length == nums.length)
+        for(int i = 1 ; i < nums.length ; i++)
+        {
+            if(nums[i] < nums[i-1])
             {
-                return true;
+                dips++;
             }
-           
+        }
+        
+        if(nums[0] < nums[nums.length-1])
+        {
+            dips++;
         }
 
-        return false;
+        return (dips>1)?false:true;
     }
 }
