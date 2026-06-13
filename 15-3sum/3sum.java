@@ -1,27 +1,49 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> list = new ArrayList<>();
-        HashSet<List<Integer>> ans = new HashSet<>();
-        for(int i = 0 ; i < nums.length ; i++)
+        int i = 0;
+        while(i <= nums.length-3)
         {
-            HashSet<Integer> set = new HashSet<>();
-            for(int j = i+1 ; j < nums.length ; j++)
+            int j = i+1;
+            int k = nums.length-1;
+
+            while(j < k)
             {
-                if(set.contains(-(nums[i] + nums[j])))
+                if(nums[i]+nums[j]+nums[k] == 0)
                 {
                     List<Integer> sublist = new ArrayList<>();
                     sublist.add(nums[i]);
                     sublist.add(nums[j]);
-                    sublist.add(-(nums[i]+nums[j]));
-                    Collections.sort(sublist);
-                    if(!ans.contains(sublist))
+                    sublist.add(nums[k]);
+                    list.add(sublist);
+                    int temp1 = nums[j];
+                    int temp2 = nums[k];
+                    while(j < k && nums[j] == temp1)
                     {
-                        list.add(sublist);
-                        ans.add(sublist);
+                        j++;
                     }
+                    while(j < k && nums[k] == temp2)
+                    {
+                        k--;
+                    }   
+
                 }
-                set.add(nums[j]);
-                
+
+                else if(nums[i]+nums[j]+nums[k] < 0)
+                {
+                    j++;
+                }
+
+                else
+                {
+                    k--;
+                }
+            }
+            int temp1 = nums[i];
+            while(i < nums.length && nums[i] == temp1)
+            {
+                i++;
             }
         }
 
