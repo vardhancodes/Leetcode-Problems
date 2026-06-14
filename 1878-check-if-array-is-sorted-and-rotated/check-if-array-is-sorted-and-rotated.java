@@ -1,27 +1,19 @@
 class Solution {
     public boolean check(int[] nums) {
-        int count = 1;
-        int k = nums.length;
-        if(nums.length == 1)
+        int dip = 0;
+        if(nums[0] < nums[nums.length-1])
         {
-            return true;
+            dip++;
         }
-        for(int i = 1 ; i < k*2 ; i++)
+        for(int i = 1 ; i < nums.length ; i++)
         {
-            if(nums[i%k] >= nums[(i-1)%k])
+            if(nums[i] < nums[i-1])
             {
-                count++;
-            }
-            else
-            {
-                count = 1;
-            }
-            if(count == k)
-            {
-                return true;
+                dip++;
             }
         }
 
-        return false;                                                
-    }               
+        return dip < 2;
+
+    }
 }
