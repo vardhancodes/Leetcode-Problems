@@ -8,7 +8,7 @@ class Solution {
         {
             if(intervals[i][0] <= end)
             {
-                start = Math.min(start,intervals[i][0]);
+                
                 end = Math.max(end,intervals[i][1]);
             }
             else
