@@ -1,49 +1,50 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int sum = 0;
+        int target = 0;
         for(int i = 0 ; i < nums.length ; i++)
         {
-            sum += nums[i];
+            target += nums[i];
         }
-        if(sum %2 != 0)
+        if(target %2 != 0)
         {
             return false;
         }
-        Boolean dp[][] = new Boolean[nums.length+1][(sum/2)+1];
-        for(Boolean[] row : dp)
+        int sum = target/2;
+        boolean[][] dp = new boolean[nums.length+1][sum+1];
+        for(int i = 0 ; i < nums.length+1; i++)
         {
-            Arrays.fill(row,null);
+            for(int j = 0; j < sum+1 ; j++)
+            {
+                if(j == 0)
+                {
+                    dp[i][j] = true;                    
+                }
+                
+                else if(i == 0)
+                {
+                    dp[i][j] = false;
+                }
+                
+            }
         }
-        return recur(nums,nums.length,sum/2,dp);
+        
+        
+        for(int i = 1 ; i < nums.length+1 ; i++)
+        {
+            for(int j = 1 ; j < sum+1 ; j++)
+            {
+                if(nums[i-1] <= j)
+                {
+                    dp[i][j] = dp[i-1][j-nums[i-1]]||dp[i-1][j];
+                }
+                else
+                {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        
+        return dp[nums.length][sum];
     }
-
-    public static boolean recur(int[] nums, int n, int sum, Boolean[][] dp)
-    {
-        if(sum == 0)
-        {
-            dp[n][sum] = true;
-            return dp[n][sum];
-        }
-
-        if(n == 0)
-        {
-            dp[n][sum] = false;
-            return dp[n][sum];
-        }
-
-        if(dp[n][sum] != null)
-        {
-            return dp[n][sum];
-        }
-
-        if(nums[n-1] <= sum)
-        {
-            return dp[n][sum] = recur(nums,n-1,sum-nums[n-1],dp)||recur(nums,n-1,sum,dp);
-        }
-
-        else
-        {
-            return dp[n][sum] = recur(nums,n-1,sum,dp);
-        }
-    }
+    
 }
