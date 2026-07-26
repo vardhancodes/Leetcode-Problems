@@ -3,7 +3,6 @@ class Solution {
         int n = text1.length();
         int m = text2.length();
         int dp[][] = new int[n+1][m+1];
-        
 
         for(int i = 1 ; i < n+1 ; i++)
         {
