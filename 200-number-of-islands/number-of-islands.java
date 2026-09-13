@@ -19,23 +19,22 @@ class Solution {
 
     public static void recur(char grid[][] , int i , int j)
     {
-        if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == '2' || grid[i]
-        [j] == '0')
-        {
-            return ;
-        }
-
         grid[i][j] = '2';
 
-        int di[] = {0,-1,1,0};
-        int dj[] = {1,0,0,-1};
+        int di[] = {-1,0,1,0};
+        int dj[] = {0,1,0,-1};
 
-        for(int index = 0 ; index < 4 ; index++)
+        for(int ind = 0 ; ind < 4 ; ind++)
         {
-            int newi = i + di[index];
-            int newj = j + dj[index];
+            int ni = i+di[ind];
+            int nj = j+dj[ind];
 
-            recur(grid,newi,newj);
+            if(ni >= 0 && ni < grid.length && nj >= 0 && nj < grid[0].length && grid[ni][nj] == '1')
+            {
+                recur(grid,ni,nj);
+            }
+
         }
+
     }
 }
