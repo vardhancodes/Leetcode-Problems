@@ -1,15 +1,15 @@
 class Solution {
     public void solve(char[][] board) {
-        boolean vis[][] = new boolean[board.length][board[0].length];
+       
         for(int i = 0 ; i < board.length ; i++)
         {
             for(int j = 0 ; j < board[0].length ; j++)
             {
                 if(i == 0 || j == 0 || i == board.length-1 || j == board[0].length-1)
                 {
-                    if(board[i][j] == 'O' && vis[i][j] == false)
+                    if(board[i][j] == 'O')
                     {
-                        dfs(vis,board,i,j);
+                        dfs(board,i,j);
                     }
                 }
             }
@@ -31,9 +31,9 @@ class Solution {
         }
     }
 
-    public void dfs(boolean[][] vis, char[][] board, int i, int j)
+    public void dfs( char[][] board, int i, int j)
     {
-        vis[i][j] = true;
+        
         board[i][j] = '.';
 
         int di[] = {-1,0,1,0};
@@ -44,9 +44,9 @@ class Solution {
             int ni = i+di[ind];
             int nj = j+dj[ind];
 
-            if(ni >= 0 && ni < board.length && nj >= 0 && nj < board[0].length && !vis[ni][nj] && board[ni][nj] != 'X')
+            if(ni >= 0 && ni < board.length && nj >= 0 && nj < board[0].length && board[ni][nj] != '.' && board[ni][nj] != 'X')
             {
-                dfs(vis,board,ni,nj);
+                dfs(board,ni,nj);
             }
         }
 
