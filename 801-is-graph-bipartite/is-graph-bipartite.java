@@ -3,39 +3,45 @@ class Solution {
         int vis[] = new int[graph.length];
         Arrays.fill(vis,-1);
 
-        Queue<Integer> q = new LinkedList<>();
-
         for(int i = 0 ; i < vis.length ; i++)
         {
-            if(vis[i] == -1)
-            {
-                q.add(i);
+           if(vis[i] == -1)
+           {
                 vis[i] = 0;
-                while(!q.isEmpty())
+                if(!dfs(vis,graph,i))
                 {
-                    int curr = q.poll();
-                    for(int ind = 0 ; ind < graph[curr].length ; ind++)
-                    {
-                        int ni = graph[curr][ind];
-                        if(vis[ni] == -1)
-                        {
-                            
-                            vis[ni] = 1 - vis[curr];
-                            q.add(ni);
-
-                        }
-
-                        else if(vis[ni] == vis[curr])
-                        {
-                            return false;
-                        }
-                        
-                    }
+                    return false;
                 }
+           }
+        }
+
+        return true;
+    }
+
+    public boolean dfs(int[] vis, int[][] graph, int i)
+    {
+
+        for(int ind = 0 ; ind < graph[i].length ; ind++)
+        {
+            int ni = graph[i][ind];
+            if(vis[ni] == -1)
+            {
+                vis[ni] = 1-vis[i];
+                if(!dfs(vis,graph,ni))
+                {
+                    return false;
+                }
+            }
+
+            else if(vis[ni] == vis[i])
+            {
+                return false;
             }
         }
 
         return true;
     }
+
+
 
 }
