@@ -10,12 +10,12 @@ class Solution {
             if(grid[0][j] == 1)
             {
                 grid[0][j] = -1;
-                q.add(new T(0,j,0));
+                q.add(new T(0,j));
             }
             if(grid[grid.length-1][j] == 1)
             {
                 grid[grid.length-1][j] = -1;
-                q.add(new T(grid.length-1,j,0));
+                q.add(new T(grid.length-1,j));
             }
         }
 
@@ -26,12 +26,12 @@ class Solution {
             if(grid[i][0] == 1 )
             {
                 grid[i][0] = -1;
-                q.add(new T(i,0,0));
+                q.add(new T(i,0));
             }
             if(grid[i][grid[0].length-1] == 1)
             {
                 grid[i][grid[0].length-1] = -1;
-                q.add(new T(i,grid[0].length-1,0));
+                q.add(new T(i,grid[0].length-1));
             }
         }
 
@@ -40,7 +40,6 @@ class Solution {
             T node = q.poll();
             int a = node.a;
             int b = node.b;
-            int c = node.c;
 
             for(int ind = 0 ; ind < 4 ; ind++)
             {
@@ -50,7 +49,7 @@ class Solution {
                 if(ni >= 0 && ni < grid.length && nj >= 0 && nj < grid[0].length && grid[ni][nj] == 1)
                 {
                     grid[ni][nj] = -1;
-                    q.add(new T(ni,nj,c+1));
+                    q.add(new T(ni,nj));
                 }
             }
 
@@ -75,12 +74,10 @@ class Solution {
 class T{
     int a;
     int b; 
-    int c;
 
-    T(int a, int b, int c)
+    T(int a, int b)
     {
         this.a = a;
         this.b = b;
-        this.c = c;
     }
 }
