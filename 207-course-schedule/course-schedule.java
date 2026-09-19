@@ -10,8 +10,8 @@ class Solution {
         }
         for(int i = 0 ; i < prerequisites.length ; i++)
         {
-            list.get(prerequisites[i][0]).add(prerequisites[i][1]);
-            indegree[prerequisites[i][1]]++;
+            list.get(prerequisites[i][1]).add(prerequisites[i][0]);
+            indegree[prerequisites[i][0]]++;
         }
         
         for(int i = 0 ; i < indegree.length ; i++)
