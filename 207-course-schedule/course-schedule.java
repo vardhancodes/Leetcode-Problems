@@ -1,44 +1,41 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        boolean vis[] = new boolean[numCourses];
-        boolean pathvis[] = new boolean[numCourses];
-
-        for(int i = 0 ; i < vis.length ; i++)
+        Queue<Integer> q = new LinkedList<>();
+        int count = 0;
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        int[] indegree = new int[numCourses];
+        for(int i = 0 ; i < numCourses ; i++)
         {
-            if(!vis[i])
+            list.add(new ArrayList<>());
+        }
+        for(int i = 0 ; i < prerequisites.length ; i++)
+        {
+            list.get(prerequisites[i][0]).add(prerequisites[i][1]);
+            indegree[prerequisites[i][1]]++;
+        }
+        
+        for(int i = 0 ; i < indegree.length ; i++)
+        {
+            if(indegree[i] == 0)
             {
-                if(dfs(vis,pathvis,prerequisites,i))
+                q.add(i);
+            }
+        }
+        
+        while(!q.isEmpty())
+        {
+            int node = q.poll();
+            count++;
+            for(int i = 0 ; i < list.get(node).size() ; i++)
+            {
+                indegree[list.get(node).get(i)]--;
+                if(indegree[list.get(node).get(i)] == 0)
                 {
-                    return false;
+                    q.add(list.get(node).get(i));
                 }
             }
         }
-
-        return true;
-    }
-
-    public boolean dfs(boolean[] vis, boolean[] pathvis, int[][] pre, int i)
-    {
-        vis[i] = true;
-        pathvis[i] = true;
-
-        for(int ind = 0 ; ind < pre.length ; ind++)
-        {
-            if((i == pre[ind][1]) && (!vis[pre[ind][0]]))
-            {
-                if(dfs(vis,pathvis,pre,pre[ind][0]))
-                {
-                    return true;
-                }
-            }
-
-            else if(i == pre[ind][1] && pathvis[pre[ind][0]])
-            {
-                return true;
-            }
-        }
-
-        pathvis[i] = false;
-        return false;
+        
+        return numCourses == count;
     }
 }
