@@ -1,69 +1,46 @@
 class Solution {
-    int start = -1;
     public int[] findOrder(int numCourses, int[][] prerequisites) {
+        Queue<Integer> q = new LinkedList<>();
+        int count = 0;
+        int[] ans = new int[numCourses];
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-        Stack<Integer> stack = new Stack<>();
-
+        int[] indegree = new int[numCourses];
         for(int i = 0 ; i < numCourses ; i++)
         {
             list.add(new ArrayList<>());
         }
-        
         for(int i = 0 ; i < prerequisites.length ; i++)
         {
             list.get(prerequisites[i][1]).add(prerequisites[i][0]);
+            indegree[prerequisites[i][0]]++;
         }
         
-        boolean vis[] = new boolean[numCourses];
-        boolean pathvis[] = new boolean[numCourses];
-        int[] ans = new int[numCourses];
-        
-        for(int i = 0 ; i < numCourses ; i++)
+        for(int i = 0 ; i < indegree.length ; i++)
         {
-            if(!vis[i])
+            if(indegree[i] == 0)
             {
-                if(dfs(vis,pathvis,i,list,ans,stack))
+                q.add(i);
+            }
+        }
+        int ind = -1;
+        while(!q.isEmpty())
+        {
+            int node = q.poll();
+            ans[++ind] = node;
+            count++;
+            for(int i = 0 ; i < list.get(node).size() ; i++)
+            {
+                indegree[list.get(node).get(i)]--;
+                if(indegree[list.get(node).get(i)] == 0)
                 {
-                    return new int[0];
+                    q.add(list.get(node).get(i));
                 }
             }
         }
-        int i = 0;
-        while(!stack.isEmpty())
+        if(count != numCourses)
         {
-            ans[i] = stack.pop();
-            i++;
+            return new int[0];
         }
-
         return ans;
-    }
-
-    public boolean dfs(boolean []vis, boolean[] pathvis, int i, ArrayList<ArrayList<Integer>> list, int[] ans, Stack<Integer> stack)
-    {
-        vis[i] = true;
-        
-        pathvis[i] = true;
-        
-        for(int ind = 0 ; ind < list.get(i).size() ; ind++)
-        {
-            int ni = list.get(i).get(ind);
-            if(!vis[ni])
-            {
-                if(dfs(vis,pathvis,ni,list,ans,stack))
-                {
-                    return true;
-                }
-                
-            }
-            
-            else if(vis[ni] && pathvis[ni])
-            {
-                return true;
-            }
-            
-        }
-        stack.push(i);
-        pathvis[i] = false;
-        return false;
     }
 }
