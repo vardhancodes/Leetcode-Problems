@@ -9,7 +9,7 @@ class Solution {
             {
                 if(!vis[i][j] && grid[i][j] == 1)
                 {
-                    max = Math.max(dfs(vis,grid,i,j,1),max);
+                    max = Math.max(dfs(vis,grid,i,j),max);
                 }
             }
         }
@@ -17,10 +17,10 @@ class Solution {
         return max;
     }
 
-    public int dfs(boolean[][] vis, int[][] grid, int i, int j, int area)
+    public int dfs(boolean[][] vis, int[][] grid, int i, int j)
     {
         vis[i][j] = true;
-
+        int area = 1;
         int di[] = {-1,0,1,0};
         int dj[] = {0,1,0,-1};
 
@@ -31,7 +31,7 @@ class Solution {
 
             if(ni >= 0 && ni < grid.length && nj >= 0 && nj < grid[0].length && !vis[ni][nj]  && grid[ni][nj] != 0)
             {
-                area = 1+dfs(vis,grid,ni,nj,area);
+                area += dfs(vis,grid,ni,nj);
             }
         }  
 
