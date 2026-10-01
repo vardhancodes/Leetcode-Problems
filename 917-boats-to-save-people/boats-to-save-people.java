@@ -8,15 +8,14 @@ class Solution {
         {
             if(people[start] + people[end] <= limit)
             {
-                ans++;
                 start++;
                 end--;
             }
             else
-            {
-                ans++;
+            {   
                 end--;
             }
+            ans++;
         }
 
         return ans;
