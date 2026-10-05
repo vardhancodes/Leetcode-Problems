@@ -4,22 +4,18 @@ class Solution {
         {
             return 1;
         }
-        List<List<Integer>> list = new ArrayList<>();
+        int outdegree[] = new int[n+1];
         int indegree[] = new int[n+1];
-        for(int i = 0 ; i < n+1 ; i++)
-        {
-            list.add(new ArrayList<Integer>());
-        }
-
+      
         for(int i = 0 ; i < trust.length ; i++)
         {
-            list.get(trust[i][0]).add(trust[i][1]);
+            outdegree[trust[i][0]]++;
             indegree[trust[i][1]]++;
         }
 
-        for(int i = 0 ; i < list.size() ; i++)
+        for(int i = 1 ; i < n+1 ; i++)
         {
-            if(list.get(i).size() == 0 && indegree[i] == n-1)
+            if( outdegree[i] == 0 && indegree[i] == n-1)
             {
                 return i;
             }        
